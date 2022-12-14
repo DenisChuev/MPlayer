@@ -39,7 +39,7 @@
         android:id="@+id/seek_bar"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:layout_margin="16dp"
+        android:layout_margin="4dp"
         app:layout_constraintBottom_toTopOf="@+id/play_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
