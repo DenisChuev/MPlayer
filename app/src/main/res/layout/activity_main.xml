@@ -5,6 +5,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_sounds"
+        android:background="#62727b"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
