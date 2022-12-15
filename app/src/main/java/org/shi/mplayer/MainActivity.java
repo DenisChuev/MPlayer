@@ -29,11 +29,11 @@ public class MainActivity extends AppCompatActivity implements SoundViewAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<String> sounds = new ArrayList<>();
+        ArrayList<String> songs = new ArrayList<>();
 
         try {
-            for (String sound : getAssets().list("sample_sounds")) {
-                sounds.add(sound.split(".mp3")[0]);
+            for (String song : getAssets().list("sample_sounds")) {
+                songs.add(song.split(".mp3")[0]);
             }
         } catch (IOException ignored) {
         }
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements SoundViewAdapter.
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         RecyclerView recyclerView = findViewById(R.id.rv_sounds);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new SoundViewAdapter(this, sounds);
+        adapter = new SoundViewAdapter(this, songs);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
@@ -53,29 +53,12 @@ public class MainActivity extends AppCompatActivity implements SoundViewAdapter.
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(MainActivity.this, PlayerActivity.class);
-        intent.putExtra("SongName", adapter.getItem(position));
-        Log.d("MainActivity", adapter.getItem(position));
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("SongsList", adapter.getSongs());
+        bundle.putInt("Position", position);
+        intent.putExtra("SongsBundle", bundle);
 
         startActivity(intent);
-
-//        mediaPlayer.stop();
-//        mediaPlayer = new MediaPlayer();
-//
-//        AssetFileDescriptor afd;
-//        try {
-//            afd = getAssets().openFd("sample_sounds/" + adapter.getItem(position) + ".mp3");
-//            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-//            afd.close();
-//
-//            mediaPlayer.setVolume(1f, 1f);
-//            mediaPlayer.setLooping(true);
-//            mediaPlayer.prepare();
-//            mediaPlayer.start();
-//
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
 
     }
